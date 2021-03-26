@@ -1,4 +1,4 @@
-# Django_Social_Poject As Instagram
+# Django_Social_Poject
 ___
 ## Project Features 
 1. Custom User Model
