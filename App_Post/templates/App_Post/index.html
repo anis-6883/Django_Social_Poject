@@ -1,0 +1,50 @@
+{% extends 'App_Post/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+{% block content %} 
+
+{% if search %}
+  <div class="row">
+  {% for i in result %}
+  <div class="col-sm-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading"></div>
+        <div class="panel-body">
+            <img src="{{i.user_profile.profile_pic.url}}" class="img-responsive" style="width:400px; height: 400px;" alt="Image" title="{{i.username}}">
+          </div>
+        <div class="panel-footer">
+            <h5 class="badge bg-secondary">{{i.dob|date:"F d, Y"}}</h5>
+            <p><a href="{% url 'other_profile' username=i.username %}">{{i.username}}</a></p>
+          </div>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+  <br><hr><br>
+{% endif %}
+
+<div class="row">
+  {% for post in posts %}
+      <div class="col-md-4 col-sm-12">
+        <div class="panel panel-primary">
+          <div class="panel-heading"></div>
+          <div class="panel-body">
+              <img src="{{post.image.url}}" class="img-responsive" style="width:400px; height: 400px;" alt="Image" title="{{post.caption}}">
+            </div>
+          <div class="panel-footer">
+            <h6>{{post.liked_post.count}} Like{{post.liked_post.count|pluralize}}</h6>
+            <h6>{{post.caption}}</h6>
+            {% if post.pk in liked_post_list %}
+                <a href="{% url 'post_unliked' post.id %}"><img style="width: 25px;" src="{% static 'App_Post/images/Up_Heart.png'%}" alt="Up_Heart" title="Up_Heart"></a>
+            {% else %}
+                <a href="{% url 'post_liked' post.id %}"><img style="width: 25px;" src="{% static 'App_Post/images/Down_Heart.png'%}" alt="Up_Heart" title="Down_Heart"></a>
+            {% endif %}
+              <h5 class="badge bg-secondary">{{post.upload_date|date:"F d, Y"}}</h5>
+              <p><a href="{% url 'other_profile' post.author.username %}">{{post.author.username}}</a></p>
+            </div>
+        </div>
+      </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}

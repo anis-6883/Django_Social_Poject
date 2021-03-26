@@ -1,0 +1,17 @@
+{% extends 'App_Post/base.html' %}
+{% block title %}Image Upload{% endblock title %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="sign_up_form">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Upload Image</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group mt-3 mb-3">
+            <button style="width: 100%;" class="btn btn-info mb-4" type="submit"> Upload </button>
+        </div>
+    </form>
+</div> 
+{% endblock content %}
